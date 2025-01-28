@@ -1,21 +1,30 @@
 version: 2.1
+
+# Define a job to be invoked later in a workflow.
 jobs:
   build:
     docker:
-     - image: python
+      - image: python
+
+    steps:
+      # Checkout the code as the first step.
+      - checkout
+      - run:
+          name: Run main1.py
+          command: python main1.py
+
+  test:
+    docker:
+      - image: python
     steps:
       - checkout
-      - run: python Main1.py
-      test:
-         docker:
-         -image: python
-         steps:
-         -checkout
-         -run: python Test.py
-workflows:
-  build_and_Test:
-   
-    jobs:
-      -build 
-      -test
+      - run:
+          name: Run Test.py
+          command: python Test.py
 
+# Orchestrate jobs using workflows
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - test

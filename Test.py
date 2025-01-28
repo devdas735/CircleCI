@@ -1,4 +1,4 @@
-from main import add
+from Main1 import Add
 def TestAdd():
   assert add(3,4)==7
   print("Add function works correctly")
